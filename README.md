@@ -1,14 +1,17 @@
 # 結合深度估計之影像切割優化
 **Key Words**： Computer Vision, Data Analysis, Depth Anything V2, Performance Optimization
 
+
 ## 📌 專案總覽（Project Overview）
 本專案基於我的碩士畢業研究，意旨為解決電子商務領域中「高品質去背」與「自動化效率」之間的矛盾。透過引入 Depth Anything V2 的深度估計（Depth Estimation）技術，補足傳統語意分割模型在複雜場景下的侷限。
+
 
 ## 🚀 核心技術（Tech Stack）
 - 語言/框架： Python, PyTorch
 - 深度學習模型： Depth Anything V2, DeepLabV3+, Segment Anything (SAM)
 - 數據處理與分析： Pandas, Matplotlib, Seaborn
 - 實驗數據集： COCO Dataset (val2017)
+
 
 ## 📝 專案描述
 【Situation：情境】
@@ -33,16 +36,24 @@
 - 效率優化： 相較於高精度 SAM 的推論時間 31.5s，深度導向法的推論時間降至 9.26s，效率提升 240%，在維持高品質輸出的同時，大幅提升處理產能。
 - 商業洞察： 透過數據分析發現 DeepLabV3+ 在特定語意場景的優勢，確立了「多模型協作」策略，可針對不同業務場景（即時 vs. 高精度）動態切換模型。
 
-## Mathematical Logic
-- 交並比（Intersection over Union，簡稱 IoU）：
+
+## 🧮 數理邏輯（Mathematical Logic）
+1. 交並比（Intersection over Union，簡稱 IoU）：
 
   在目標檢測（Object Detection）和語意分割中，用來衡量兩個邊框（Bounding Box）或區域重疊程度的一個指標。
 
   IoU 計算的是兩個集合的交集（Intersection）除以它們的聯集（Union）：
-  
-    <p align="center">
-      $$IoU = \frac{∣A∪B∣}{∣A∩B∣}$$
-    </p>
+
+  $$\text{IoU} = \frac{|A \cap B|}{|A \cup B|}$$
+  - 交集 (Overlap)：預測框與真實框重合的部分。
+  - 聯集 (Union)：預測框面積加上真實框面積，再減去交集部分。
+  - 可以直白的說：IoU 就是在問『預測出的範圍裡，有多少比例是真的抓對了？』
+2. 利用 梯度運算 來擷取邊界特徵：
+
+  梯度（Gradient）代表像素值的「變化率」。邊界通常發生在像素值劇烈變動的地方。
+  - 一階導數 (如 Sobel 算子)：計算水平與垂直方向的變化，產生梯度的幅值。
+  - 二階導數 (如 Laplacian)：找尋過零點（Zero-crossing），能精確定位邊緣的中心位置。
+
 
 ## 🪧 量化指標（Quantitative Metrics）
 | 模型方法 | 平均處理時間 (s) | IoU (指標) | F-score |
@@ -51,6 +62,7 @@
 |DeepLabV3+ |	1.144 |	依賴語意類別 | 0.788 (受限)|
 |Segment Anything (SAM)	| 31.519 | 低 (自動模式) | 低 (自動模式)|
 
+
 ## 📊 實驗結果視覺化
 <p align="center">
 <img width="500" alt="Github-畢業論文所需圖表-seaborn" src="https://github.com/user-attachments/assets/6869def9-44eb-44e9-961d-8d246b80ae77" />
@@ -58,6 +70,7 @@
 
 - 由散佈圖可以清晰發現：本研究提出的方法（Depth-based）推論時間在 10 秒內，提供了比 SAM 更穩定的 IoU 表現，是兼顧成本與效果的最佳商業選擇。
 - 而將深度資訊與結合語意資訊（DeepLabV3+）的策略，雖然 IoU 表現略微降低，但仍比 SAM 擁有更高效且穩定的 IoU 表現。
+
 
 ## 💥 Bad Case Analysis (異常值分析)
 根據 `analysis/` 資料夾中的圖片可以發現：
