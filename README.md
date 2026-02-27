@@ -40,9 +40,9 @@
 
   IoU 計算的是兩個集合的交集（Intersection）除以它們的聯集（Union）：
   
-    $$
-    IoU = \frac{∣A∪B∣}{∣A∩B∣}
-    $$
+    <p align="center">
+      $$IoU = \frac{∣A∪B∣}{∣A∩B∣}$$
+    </p>
 
 ## 🪧 量化指標（Quantitative Metrics）
 | 模型方法 | 平均處理時間 (s) | IoU (指標) | F-score |
