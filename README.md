@@ -37,6 +37,7 @@
 - 交並比（Intersection over Union，簡稱 IoU）：
 
   在目標檢測（Object Detection）和語意分割中，用來衡量兩個邊框（Bounding Box）或區域重疊程度的一個指標。
+
   IoU 計算的是兩個集合的交集（Intersection）除以它們的聯集（Union）：
     $$IoU = \frac{∣A∪B∣}{∣A∩B∣}$$
 
